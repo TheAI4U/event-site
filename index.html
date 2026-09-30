@@ -75,6 +75,13 @@
     footer p {
       margin: 0;
     }
+
+    /* Make the Google Form fit on small screens */
+    iframe {
+      max-width: 100%;
+      width: 100%;
+      border: 0;
+    }
   </style>
 </head>
 <body>
@@ -92,128 +99,9 @@
         Come along and discover how AI can become part of your everyday life.
       </p>
     </section>
-   <script>
-// words this code adds to your page, in English.
-TEXT.en.signupTitle = "Sign up";
-TEXT.en.nameLabel = "Your name or nickname";
-TEXT.en.emailLabel = "Your email address";
-TEXT.en.questionLabel = "Any questions? (optional)";
-TEXT.en.consent = "We use your name and email only to run this event. We delete them afterwards.";
-TEXT.en.send = "Sign me up";
-TEXT.en.sending = "Sending...";
-TEXT.en.error = "Sorry, something went wrong. Please try again.";
+  </main>
 
-var BUILT = { signup: "" };
-
-function field(labelText, control) {
-  var wrap = el("p");
-  var label = el("label", labelText);
-  label.style.display = "block";
-  label.appendChild(document.createElement("br"));
-  label.appendChild(control);
-  wrap.appendChild(label);
-  return wrap;
-}
-
-function input(name, type, max) {
-  var i = el("input");
-  i.name = name;
-  i.type = type;
-  i.maxLength = max;
-  i.style.width = "100%";
-  i.style.boxSizing = "border-box";
-  i.style.padding = "8px";
-  return i;
-}
-
-function postJson(payload) {
-  return fetch(API, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify(payload)
-  }).then(function (r) {
-    return r.json();
-  });
-}
-
-// The sign-up form
-function renderSignup(d) {
-  var b = box("signup", 50);
-  b.innerHTML = "";
-  b.appendChild(el("h2", t("signupTitle")));
-  if (d.systemOn == false) {
-    b.appendChild(el("p", t("paused")));
-    return;
-  }
-  var form = el("form");
-  form.id = "signup-form";
-  var nameBox = input("name", "text", 60);
-  nameBox.required = true;
-  var emailBox = input("email", "email", 120);
-  emailBox.required = true;
-  var questionBox = el("textarea");
-  questionBox.name = "question";
-  questionBox.maxLength = 300;
-  questionBox.rows = 3;
-  questionBox.style.width = "100%";
-  questionBox.style.boxSizing = "border-box";
-  form.appendChild(field(t("nameLabel"), nameBox));
-  form.appendChild(field(t("emailLabel"), emailBox));
-  form.appendChild(field(t("questionLabel"), questionBox));
-  // A hidden trap. Real people never see it, but robots fill it in.
-  var trap = el("div");
-  trap.setAttribute("aria-hidden", "true");
-  trap.style.position = "absolute";
-  trap.style.left = "-9999px";
-  var trapBox = input("website", "text", 100);
-  trapBox.tabIndex = -1;
-  trapBox.setAttribute("autocomplete", "off");
-  trap.appendChild(trapBox);
-  form.appendChild(trap);
-  form.appendChild(el("p", t("consent")));
-  var button = el("button", t("send"));
-  button.type = "submit";
-  var message = el("p");
-  message.id = "signup-message";
-  message.setAttribute("role", "status");
-  form.appendChild(button);
-  form.appendChild(message);
-  form.addEventListener("submit", function (ev) {
-    ev.preventDefault();
-    button.disabled = true;
-    message.textContent = t("sending");
-    postJson({
-      action: "signup",
-      name: nameBox.value,
-      email: emailBox.value,
-      question: questionBox.value,
-      website: trapBox.value
-    })
-    .then(function (res) {
-      message.textContent = res.message || t("error");
-      if (res.ok) {
-        form.reset();
-        loadLive();
-      }
-      button.disabled = false;
-    })
-    .catch(function () {
-      message.textContent = t("error");
-      button.disabled = false;
-    });
-  });
-  b.appendChild(form);
-}
-
-// Build the sign-up form once (and again if the language changes).
-HOOKS.push(function (d) {
-  if (BUILT.signup !== LANG) {
-    renderSignup(d);
-    BUILT.signup = LANG;
-  }
-});
-</script>  </main>
-<script>
+  <script>
 /* =========== YOUR SETTINGS (change only this) =========== */
 var API = "https://script.google.com/macros/s/AKfycbzrIfi3rr5kzPVo_xaqro7IdeZWA5hVZo86KFPEY9KXcIyYCPrsBul4dQVb5ngyihmO/exec";
 /* ========================================================= */
@@ -261,7 +149,6 @@ function el(tag, text, className) {
   return e;
 }
 
-// Simple styles for everything this code adds.
 (function addStyles() {
   var s = document.createElement("style");
   s.textContent =
@@ -276,8 +163,6 @@ function el(tag, text, className) {
   document.head.appendChild(s);
 })();
 
-// Find a section on your page by its id. If your page does not have one,
-// make it and put it in a sensible place. "order" decides the position.
 function box(id, order) {
   var found = $(id);
   if (found) {
@@ -411,7 +296,6 @@ function loadLive() {
     .catch(showError);
 }
 
-// Counts one visit. No names, no emails, nothing personal.
 function countVisit() {
   fetch(API + "?action=hit&lang=" + LANG).catch(function () {});
 }
@@ -419,12 +303,12 @@ function countVisit() {
 loadLive();
 countVisit();
 </script>
-  <script>
+
+<script>
 /* =========== DAY 2 SETTINGS (change only this) =========== */
-var SECOND = {code: "es", label: "Español"}; // your second language
+var SECOND = {code: "es", label: "Español"};
 /* ========================================================= */
 
-// Words this code adds to your page, in English.
 TEXT.en.calendar = "Add to my calendar";
 TEXT.en.countdown = "Starts in {d} days, {h} hours, {m} minutes, {s} seconds";
 TEXT.en.started = "The event is happening now!";
@@ -436,7 +320,6 @@ TEXT.en.bigger = "Text bigger";
 TEXT.en.smaller = "Text smaller";
 TEXT.en.contrast = "High contrast";
 
-// Your second language goes here in Block 6 of Day 2.
 TEXT[SECOND.code] = {
   when: "Cuándo",
   where: "Dónde",
@@ -483,7 +366,6 @@ function stamp(d) {
   return d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
 }
 
-// Countdown
 var COUNTDOWN_TIMER = null;
 
 function startCountdown(d) {
@@ -560,7 +442,6 @@ function showVideo(d) {
   }
 }
 
-// GALLERY (pictures and alt text come from your Images tab)
 function showGallery() {
   if (GALLERY.length == 0) {
     return;
@@ -596,13 +477,11 @@ function loadGallery() {
     .catch(function () {});
 }
 
-// The "made with AI" label
 function showAiLabel() {
   var b = box("ai-label", 90);
   b.textContent = t("aiLabel");
 }
 
-// Text size, contrast and language buttons
 function makeButton(id, label, onclick) {
   var b = el("button", label);
   b.type = "button";
@@ -637,7 +516,6 @@ function updateToolbar() {
   $("lang-switch").textContent = LANG == "en" ? SECOND.label : "English";
 }
 
-// Swap the words on your own page. Any element with data-i18n="some-key" is translated.
 function translatePage() {
   var items = document.querySelectorAll("[data-i18n]");
   for (var i = 0; i < items.length; i++) {
@@ -662,7 +540,6 @@ function switchLanguage() {
   }
 }
 
-// Everything above runs every time the live information arrives.
 HOOKS.push(startCountdown);
 HOOKS.push(showCalendarLink);
 HOOKS.push(showVideo);
@@ -673,9 +550,128 @@ HOOKS.push(function () {
 buildToolbar();
 loadGallery();
 </script>
+
+<script>
+// ===== DAY 3: YOUR OWN SIGN-UP FORM =====
+TEXT.en.signupTitle = "Sign up";
+TEXT.en.nameLabel = "Your name or nickname";
+TEXT.en.emailLabel = "Your email address";
+TEXT.en.questionLabel = "Any questions? (optional)";
+TEXT.en.consent = "We use your name and email only to run this event. We delete them afterwards.";
+TEXT.en.send = "Sign me up";
+TEXT.en.sending = "Sending...";
+TEXT.en.error = "Sorry, something went wrong. Please try again.";
+
+var BUILT = { signup: "" };
+
+function field(labelText, control) {
+  var wrap = el("p");
+  var label = el("label", labelText);
+  label.style.display = "block";
+  label.appendChild(document.createElement("br"));
+  label.appendChild(control);
+  wrap.appendChild(label);
+  return wrap;
+}
+
+function input(name, type, max) {
+  var i = el("input");
+  i.name = name;
+  i.type = type;
+  i.maxLength = max;
+  i.style.width = "100%";
+  i.style.boxSizing = "border-box";
+  i.style.padding = "8px";
+  return i;
+}
+
+function postJson(payload) {
+  return fetch(API, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
+  }).then(function (r) {
+    return r.json();
+  });
+}
+
+function renderSignup(d) {
+  var b = box("signup", 50);
+  b.innerHTML = "";
+  b.appendChild(el("h2", t("signupTitle")));
+  if (d.systemOn == false) {
+    b.appendChild(el("p", t("paused")));
+    return;
+  }
+  var form = el("form");
+  form.id = "signup-form";
+  var nameBox = input("name", "text", 60);
+  nameBox.required = true;
+  var emailBox = input("email", "email", 120);
+  emailBox.required = true;
+  var questionBox = el("textarea");
+  questionBox.name = "question";
+  questionBox.maxLength = 300;
+  questionBox.rows = 3;
+  questionBox.style.width = "100%";
+  questionBox.style.boxSizing = "border-box";
+  form.appendChild(field(t("nameLabel"), nameBox));
+  form.appendChild(field(t("emailLabel"), emailBox));
+  form.appendChild(field(t("questionLabel"), questionBox));
+  var trap = el("div");
+  trap.setAttribute("aria-hidden", "true");
+  trap.style.position = "absolute";
+  trap.style.left = "-9999px";
+  var trapBox = input("website", "text", 100);
+  trapBox.tabIndex = -1;
+  trapBox.setAttribute("autocomplete", "off");
+  trap.appendChild(trapBox);
+  form.appendChild(trap);
+  form.appendChild(el("p", t("consent")));
+  var button = el("button", t("send"));
+  button.type = "submit";
+  var message = el("p");
+  message.id = "signup-message";
+  message.setAttribute("role", "status");
+  form.appendChild(button);
+  form.appendChild(message);
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    button.disabled = true;
+    message.textContent = t("sending");
+    postJson({
+      action: "signup",
+      name: nameBox.value,
+      email: emailBox.value,
+      question: questionBox.value,
+      website: trapBox.value
+    })
+    .then(function (res) {
+      message.textContent = res.message || t("error");
+      if (res.ok) {
+        form.reset();
+        loadLive();
+      }
+      button.disabled = false;
+    })
+    .catch(function () {
+      message.textContent = t("error");
+      button.disabled = false;
+    });
+  });
+  b.appendChild(form);
+}
+
+HOOKS.push(function (d) {
+  if (BUILT.signup !== LANG) {
+    renderSignup(d);
+    BUILT.signup = LANG;
+  }
+});
+</script>
+
   <footer>
     <p>A made-up event for a learning project. Nothing here is real.</p>
-  
   </footer>
 </body>
 </html>
