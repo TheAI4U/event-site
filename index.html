@@ -92,11 +92,11 @@
 
   <main>
     <section class="about">
-      <h2>About this event</h2>
+      <h2 data-i18n="aboutTitle">About this event</h2>
       <p>
-        AI for Everyone is a free, friendly event for adults who are curious about AI but don't know where to start.<br>
-        You don't need to be good with technology or have used AI before — we'll explain everything in plain, friendly language, one step at a time.<br>
-        Come along and discover how AI can become part of your everyday life.
+        <span data-i18n="about1">AI for Everyone is a free, friendly event for adults who are curious about AI but don't know where to start.</span><br>
+        <span data-i18n="about2">You don't need to be good with technology or have used AI before — we'll explain everything in plain, friendly language, one step at a time.</span><br>
+        <span data-i18n="about3">Come along and discover how AI can become part of your everyday life.</span>
       </p>
     </section>
   </main>
@@ -204,12 +204,23 @@ function setText(id, text) {
 function renderFacts(d) {
   document.title = d.eventName || document.title;
   setText("event-name", d.eventName);
-  setText("event-tagline", d.tagline);
+  var ownTagline = TEXT[LANG] && TEXT[LANG].tagline;
+  setText("event-tagline", (LANG != "en" && ownTagline) ? ownTagline : d.tagline);
   var b = box("event-facts", 10);
   b.innerHTML = "";
   var p1 = el("p");
   p1.appendChild(el("strong", t("when") + ": "));
-  p1.appendChild(document.createTextNode(d.whenText));
+  var whenShown = d.whenText;
+  if (LANG != "en" && d.whenIso) {
+    var whenDate = new Date(d.whenIso);
+    if (!isNaN(whenDate.getTime())) {
+      whenShown = whenDate.toLocaleString(LANG, {
+        weekday: "long", day: "numeric", month: "long",
+        year: "numeric", hour: "2-digit", minute: "2-digit"
+      });
+    }
+  }
+  p1.appendChild(document.createTextNode(whenShown));
   var p2 = el("p");
   p2.appendChild(el("strong", t("where") + ": "));
   p2.appendChild(document.createTextNode(d.location));
@@ -338,7 +349,13 @@ TEXT[SECOND.code] = {
   aiLabel: "Las imágenes y el vídeo de esta página se han creado con IA.",
   bigger: "Texto más grande",
   smaller: "Texto más pequeño",
-  contrast: "Alto contraste"
+  contrast: "Alto contraste",
+  tagline: "Descubre la IA. No hace falta experiencia.",
+  aboutTitle: "Sobre este evento",
+  about1: "AI for Everyone es un evento gratuito y cercano para adultos con curiosidad por la IA que no saben por dónde empezar.",
+  about2: "No necesitas ser bueno con la tecnología ni haber usado IA antes: te lo explicaremos todo en un lenguaje sencillo y cercano, paso a paso.",
+  about3: "Ven y descubre cómo la IA puede formar parte de tu vida diaria.",
+  footer: "Un evento inventado para un proyecto de aprendizaje. Nada de esto es real."
 };
 
 var GALLERY = [];
@@ -564,6 +581,15 @@ TEXT.en.send = "Sign me up";
 TEXT.en.sending = "Sending...";
 TEXT.en.error = "Sorry, something went wrong. Please try again.";
 
+TEXT[SECOND.code].signupTitle = "Inscríbete";
+TEXT[SECOND.code].nameLabel = "Tu nombre o apodo";
+TEXT[SECOND.code].emailLabel = "Tu correo electrónico";
+TEXT[SECOND.code].questionLabel = "¿Tienes alguna pregunta? (opcional)";
+TEXT[SECOND.code].consent = "Usamos tu nombre y tu correo solo para organizar este evento. Los borramos después.";
+TEXT[SECOND.code].send = "Apúntame";
+TEXT[SECOND.code].sending = "Enviando...";
+TEXT[SECOND.code].error = "Lo sentimos, algo ha salido mal. Inténtalo de nuevo.";
+
 var BUILT = { signup: "" };
 
 function field(labelText, control) {
@@ -681,6 +707,13 @@ TEXT.en.thinking = "Thinking...";
 TEXT.en.aiNote = "This answer comes from an AI that only knows the FAQ. It can be wrong. Please check important details with the organiser.";
 TEXT.en.wait = "Please wait a few seconds before asking again.";
 
+TEXT[SECOND.code].askTitle = "Pregunta al asistente del evento";
+TEXT[SECOND.code].askPlaceholder = "Escribe aquí tu pregunta";
+TEXT[SECOND.code].askButton = "Preguntar";
+TEXT[SECOND.code].thinking = "Pensando...";
+TEXT[SECOND.code].aiNote = "Esta respuesta viene de una IA que solo conoce las preguntas frecuentes. Puede equivocarse. Consulta los datos importantes con la persona organizadora.";
+TEXT[SECOND.code].wait = "Espera unos segundos antes de volver a preguntar.";
+
 BUILT.ask = "";
 var LAST_ASK = 0;
 
@@ -731,7 +764,7 @@ HOOKS.push(function () {
 });
 </script>
   <footer>
-    <p>A made-up event for a learning project. Nothing here is real.</p>
+    <p data-i18n="footer">A made-up event for a learning project. Nothing here is real.</p>
   </footer>
 </body>
 </html>
