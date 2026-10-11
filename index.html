@@ -76,63 +76,98 @@
       margin: 0;
     }
 
-    /* Hero section */
+   /* Hero section */
     .hero {
-      position: relative;
-      min-height: 80vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: var(--white);
-      background-image: url('scene5.2.jpg');
-      background-size: cover;
-      background-position: center;
+      background: var(--soft);
       padding: 4rem 1.5rem;
     }
 
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(26, 58, 107, 0.65);
-      z-index: 1;
-    }
-
     .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 48rem;
+      max-width: 72rem;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
     }
 
-    .hero h1 {
+    .hero-text h1 {
       margin: 0 0 1rem;
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-size: clamp(2.5rem, 5vw, 4rem);
       line-height: 1.1;
+      color: var(--blue);
     }
 
-     .hero p {
-      margin: 0 0 3rem !important;
-      font-size: clamp(1.3rem, 4vw, 1.9rem);
+    .hero-text #event-tagline {
+      margin: 0 0 1.5rem;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      color: var(--blue);
+      font-weight: 500;
     }
 
-    .hero-button {
-      margin-top: 1rem;
+    .hero-subtitle {
+      margin: 0 0 2rem;
+      font-size: 1.1rem;
+      color: var(--blue);
+      opacity: 0.85;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
 
     .hero-button {
       display: inline-block;
-      background: var(--white);
-      color: var(--blue);
+      background: var(--blue);
+      color: var(--white);
       padding: 1rem 2rem;
       border-radius: 0.5rem;
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.1rem;
-      transition: transform 0.2s ease;
+      font-size: 1rem;
+      transition: transform 0.2s ease, background 0.2s ease;
     }
-    
+
     .hero-button:hover {
       transform: scale(1.05);
+      background: #2a4d7f;
+    }
+
+    .hero-button-secondary {
+      display: inline-block;
+      background: transparent;
+      color: var(--blue);
+      padding: 1rem 2rem;
+      border: 2px solid var(--blue);
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .hero-button-secondary:hover {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px rgba(26, 58, 107, 0.15);
+    }
+
+    @media (max-width: 800px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+      }
+      .hero-image {
+        order: -1;
+      }
     }
 
     /* Countdown */
@@ -257,12 +292,20 @@
       <li><a href="#" id="nav-lang" class="nav-lang">Español</a></li>
     </ul>
   </nav>
-   <header class="hero">
-    <div class="hero-overlay"></div>
+  <header class="hero">
     <div class="hero-content">
-      <h1 id="event-name">AI for Everyone</h1>
-      <p id="event-tagline">Discover AI. No experience needed.</p>
-      <a href="#signup" class="hero-button">Sign up</a>
+      <div class="hero-text">
+        <h1 id="event-name">AI for Everyone</h1>
+        <p id="event-tagline">Discover AI. No experience needed.</p>
+        <p class="hero-subtitle">A free, friendly event for adults who are curious about AI but don't know where to start.</p>
+        <div class="hero-buttons">
+          <a href="#signup" class="hero-button">Sign up</a>
+          <a href="#about" class="hero-button-secondary">Learn more</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="scene5.2.jpg" alt="Older adults smiling and raising their hands together in a bright, welcoming workshop">
+      </div>
     </div>
   </header>
 
