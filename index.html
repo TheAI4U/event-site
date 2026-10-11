@@ -711,7 +711,12 @@ function buildToolbar() {
   bar.appendChild(makeButton("contrast-toggle", t("contrast"), function () {
     document.body.classList.toggle("high-contrast");
   }));
-    document.body.insertBefore(bar, document.body.firstChild);
+    var nav = document.querySelector(".main-nav");
+if (nav && nav.nextSibling) {
+  document.body.insertBefore(bar, nav.nextSibling);
+} else {
+  document.body.insertBefore(bar, document.body.firstChild);
+}
 }
 
 function updateToolbar() {
