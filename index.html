@@ -491,12 +491,20 @@ function startCountdown(d) {
     var now = new Date().getTime();
     var ms = start - now;
     if (ms > 0) {
-      b.textContent = fmt(t("countdown"), {
-        d: Math.floor(ms / 86400000),
-        h: Math.floor((ms % 86400000) / 3600000),
-        m: Math.floor((ms % 3600000) / 60000),
-        s: Math.floor((ms % 60000) / 1000)
-      });
+      var days = Math.floor(ms / 86400000);
+      var hours = Math.floor((ms % 86400000) / 3600000);
+      var minutes = Math.floor((ms % 3600000) / 60000);
+      var seconds = Math.floor((ms % 60000) / 1000);
+      b.innerHTML =
+        '<div class="countdown-box">' +
+        '<p class="countdown-label">Starts in</p>' +
+        '<div class="countdown-numbers">' +
+        '<div class="countdown-unit"><span class="countdown-value">' + days + '</span><span class="countdown-name">days</span></div>' +
+        '<div class="countdown-unit"><span class="countdown-value">' + hours + '</span><span class="countdown-name">hours</span></div>' +
+        '<div class="countdown-unit"><span class="countdown-value">' + minutes + '</span><span class="countdown-name">minutes</span></div>' +
+        '<div class="countdown-unit"><span class="countdown-value">' + seconds + '</span><span class="countdown-name">seconds</span></div>' +
+        '</div>' +
+        '</div>';
     } else if (now < end) {
       b.textContent = t("started");
     } else {
