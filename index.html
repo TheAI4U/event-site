@@ -460,9 +460,13 @@ var TEXT_SIZE = 100;
 (function addStyles2() {
   var s = document.createElement("style");
   s.textContent =
-    ".a11y-bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;" +
-    "padding:8px 12px;background:#f0f0f0;border-bottom:1px solid #cccccc;} " +
-    ".a11y-bar button{padding:6px 10px;font-size:0.9em;cursor:pointer;} " +
+    ".a11y-bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;" +
+    "padding:12px 16px;background:#eef3fb;border-bottom:1px solid #d0d8e8;} " +
+    ".a11y-bar button{padding:8px 16px;font-size:0.9rem;cursor:pointer;" +
+    "background:#ffffff;color:#1a3a6b;border:1px solid #1a3a6b;" +
+    "border-radius:0.4rem;font-weight:500;" +
+    "transition:background 0.2s ease,color 0.2s ease;} " +
+    ".a11y-bar button:hover{background:#1a3a6b;color:#ffffff;} " +
     "body.high-contrast{background:#000000 !important;color:#ffffff !important;} " +
     "body.high-contrast .live-section{background:#000000 !important;" +
     "color:#ffffff !important;border-color:#ffffff !important;} " +
