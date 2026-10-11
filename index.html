@@ -174,9 +174,88 @@
       color: var(--blue);
       opacity: 0.7;
     }
+        /* Main navigation */
+    .main-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      background: var(--white);
+      border-bottom: 1px solid #d0d8e8;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--blue);
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .nav-logo img {
+      height: 36px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--blue);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: #4a6fa5;
+    }
+
+    .nav-lang {
+      font-weight: bold;
+    }
+
+    @media (max-width: 700px) {
+      .main-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links {
+        gap: 14px;
+        font-size: 0.9rem;
+      }
+    }
   </style>
   </head>
 <body>
+    <nav class="main-nav" aria-label="Main navigation">
+    <a href="#" class="nav-logo">
+      <img src="logo.png" alt="AI for Everyone logo">
+      <span>AI for Everyone</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#signup">Sign up</a></li>
+      <li><a href="#" id="nav-lang" class="nav-lang">Español</a></li>
+    </ul>
+  </nav>
    <header class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -187,7 +266,7 @@
   </header>
 
   <main>
-    <section class="about">
+    <section class="about" id="about">
       <h2 data-i18n="aboutTitle">About this event</h2>
       <p>
         <span data-i18n="about1">AI for Everyone is a free, friendly event for adults who are curious about AI but don't know where to start.</span><br>
@@ -632,17 +711,18 @@ function buildToolbar() {
   bar.appendChild(makeButton("contrast-toggle", t("contrast"), function () {
     document.body.classList.toggle("high-contrast");
   }));
-  bar.appendChild(makeButton("lang-switch", SECOND.label, switchLanguage));
-  document.body.insertBefore(bar, document.body.firstChild);
+    document.body.insertBefore(bar, document.body.firstChild);
 }
 
 function updateToolbar() {
   $("text-bigger").textContent = t("bigger");
   $("text-smaller").textContent = t("smaller");
   $("contrast-toggle").textContent = t("contrast");
-  $("lang-switch").textContent = LANG == "en" ? SECOND.label : "English";
+  var navLang = document.getElementById("nav-lang");
+  if (navLang) {
+    navLang.textContent = LANG == "en" ? SECOND.label : "English";
+  }
 }
-
 function translatePage() {
   var items = document.querySelectorAll("[data-i18n]");
   for (var i = 0; i < items.length; i++) {
@@ -676,6 +756,14 @@ HOOKS.push(function () {
 });
 buildToolbar();
 loadGallery();
+  // Connect the language link in the main menu
+var navLang = document.getElementById("nav-lang");
+if (navLang) {
+  navLang.addEventListener("click", function (e) {
+    e.preventDefault();
+    switchLanguage();
+  });
+}
 </script>
 
 <script>
