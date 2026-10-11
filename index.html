@@ -715,7 +715,16 @@ function buildToolbar() {
 if (nav && nav.nextSibling) {
   document.body.insertBefore(bar, nav.nextSibling);
 } else {
+  bar.style.display = "flex";
+bar.style.justifyContent = "flex-end";
+bar.style.width = "100%";
+bar.style.boxSizing = "border-box";
+var nav = document.querySelector(".main-nav");
+if (nav && nav.nextSibling) {
+  document.body.insertBefore(bar, nav.nextSibling);
+} else {
   document.body.insertBefore(bar, document.body.firstChild);
+}
 }
 }
 
