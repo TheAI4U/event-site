@@ -172,7 +172,74 @@
         order: -1;
       }
     }
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 64rem;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
 
+    .card {
+      background: var(--white);
+      border: 1px solid #d0d8e8;
+      border-radius: 1rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(26, 58, 107, 0.1);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1.15rem;
+      color: var(--blue);
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--blue);
+      opacity: 0.85;
+    }
+
+    /* Info row: event facts + countdown */
+    .info-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 64rem;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .info-box {
+      background: var(--white);
+      border: 1px solid #d0d8e8;
+      border-radius: 1rem;
+      padding: 2rem 1.5rem;
+    }
+
+    @media (max-width: 800px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+      .info-row {
+        grid-template-columns: 1fr;
+      }
+    }
     /* Countdown */
     .countdown-box {
       text-align: center;
@@ -320,6 +387,29 @@
         <span data-i18n="about2">You don't need to be good with technology or have used AI before — we'll explain everything in plain, friendly language, one step at a time.</span><br>
         <span data-i18n="about3">Come along and discover how AI can become part of your everyday life.</span>
       </p>
+    </section>
+
+    <section class="cards">
+      <div class="card">
+        <div class="card-icon">🌱</div>
+        <h3>Start from scratch</h3>
+        <p>Never used AI before? That's OK. We'll start from the very beginning.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💡</div>
+        <h3>Everyday AI</h3>
+        <p>Ask questions, get ideas and find help with everyday things.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">✅</div>
+        <h3>Learn with confidence</h3>
+        <p>AI can be wrong. Learn how to spot it and check what it tells you.</p>
+      </div>
+    </section>
+
+    <section class="info-row">
+      <div class="info-box" id="event-facts"></div>
+      <div class="info-box" id="countdown"></div>
     </section>
   </main>
 
