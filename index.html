@@ -24,59 +24,13 @@
       line-height: 1.7;
     }
 
-    header {
-      background: var(--blue);
-      color: var(--white);
-      text-align: center;
-      padding: 4rem 1.5rem;
-    }
-
-    #event-name {
-      margin: 0 0 1rem;
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      line-height: 1.1;
-    }
-
-    #event-tagline {
-      margin: 0;
-      font-size: clamp(1.3rem, 4vw, 1.9rem);
-    }
-
     main {
-      max-width: 42rem;
+      max-width: 72rem;
       margin: 0 auto;
       padding: 3rem 1.5rem;
     }
 
-    .about {
-      background: var(--soft);
-      border-left: 0.5rem solid var(--blue);
-      border-radius: 0.75rem;
-      padding: 2rem 1.5rem;
-      scroll-margin-top: 140px;
-    }
-
-    .about h2 {
-      margin: 0 0 1rem;
-      font-size: clamp(1.75rem, 5vw, 2.25rem);
-    }
-
-    .about p {
-      margin: 0;
-      text-align: justify;
-    }
-
-    footer {
-      border-top: 0.25rem solid var(--blue);
-      text-align: center;
-      padding: 2rem 1.5rem;
-      font-size: 1.1rem;
-    }
-    footer p {
-      margin: 0;
-    }
-
-   /* Hero section */
+    /* ---------- Hero ---------- */
     .hero {
       background: var(--soft);
       padding: 4rem 1.5rem;
@@ -164,22 +118,12 @@
       box-shadow: 0 10px 30px rgba(26, 58, 107, 0.15);
     }
 
-    @media (max-width: 800px) {
-      .hero-content {
-        grid-template-columns: 1fr;
-      }
-      .hero-image {
-        order: -1;
-      }
-    }
-    /* Cards */
+    /* ---------- Cards (About) ---------- */
     .cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
-      max-width: 64rem;
-      margin: 3rem auto;
-      padding: 0 1.5rem;
+      margin: 3rem 0;
     }
 
     .card {
@@ -215,35 +159,24 @@
       opacity: 0.85;
     }
 
-    /* Info row: event facts + countdown */
-    .info-row {
+    /* ---------- Rows (two columns) ---------- */
+    .row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
-      max-width: 64rem;
-      margin: 3rem auto;
-      padding: 0 1.5rem;
+      margin: 3rem 0;
+      align-items: start;
     }
 
-    .info-box {
-      background: var(--white);
-      border: 1px solid #d0d8e8;
-      border-radius: 1rem;
-      padding: 2rem 1.5rem;
+    .row .live-section {
+      max-width: none;
+      margin: 0;
     }
 
-    @media (max-width: 800px) {
-      .cards {
-        grid-template-columns: 1fr;
-      }
-      .info-row {
-        grid-template-columns: 1fr;
-      }
-    }
-    /* Countdown */
+    /* ---------- Countdown ---------- */
     .countdown-box {
       text-align: center;
-      padding: 3rem 1.5rem;
+      padding: 2rem 1.5rem;
     }
 
     .countdown-label {
@@ -268,7 +201,7 @@
     }
 
     .countdown-value {
-      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
       font-weight: bold;
       color: var(--blue);
       line-height: 1;
@@ -280,7 +213,8 @@
       color: var(--blue);
       opacity: 0.7;
     }
-        /* Main navigation */
+
+    /* ---------- Navigation ---------- */
     .main-nav {
       position: sticky;
       top: 0;
@@ -335,7 +269,64 @@
       font-weight: bold;
     }
 
-    @media (max-width: 700px) {
+    /* ---------- Footer ---------- */
+    footer {
+      border-top: 0.25rem solid var(--blue);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 1.1rem;
+    }
+    footer p {
+      margin: 0;
+    }
+
+    /* ---------- Forms (signup + ask) ---------- */
+    #signup-form button,
+    #ask + #ask-button,
+    #ask-button {
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      padding: 0.9rem 1.8rem;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    #signup-form button:hover,
+    #ask-button:hover {
+      background: #2a4d7f;
+    }
+
+    #signup-form input,
+    #signup-form textarea,
+    #ask-input {
+      border: 1px solid #c9c9c9;
+      border-radius: 0.4rem;
+      padding: 0.75rem;
+      font-size: 1rem;
+      font-family: inherit;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+      }
+      .hero-image {
+        order: -1;
+      }
+      .cards {
+        grid-template-columns: 1fr;
+      }
+      .row {
+        grid-template-columns: 1fr;
+      }
       .main-nav {
         flex-direction: column;
         align-items: flex-start;
@@ -346,9 +337,10 @@
       }
     }
   </style>
-  </head>
+</head>
 <body>
-    <nav class="main-nav" aria-label="Main navigation">
+
+  <nav class="main-nav" aria-label="Main navigation">
     <a href="#" class="nav-logo">
       <img src="logo.png" alt="AI for Everyone logo">
       <span>AI for Everyone</span>
@@ -362,6 +354,7 @@
       <li><a href="#" id="nav-lang" class="nav-lang">Español</a></li>
     </ul>
   </nav>
+
   <header class="hero">
     <div class="hero-content">
       <div class="hero-text">
@@ -380,36 +373,39 @@
   </header>
 
   <main>
-    <section class="about" id="about">
-      <h2 data-i18n="aboutTitle">About this event</h2>
-      <p>
-        <span data-i18n="about1">AI for Everyone is a free, friendly event for adults who are curious about AI but don't know where to start.</span><br>
-        <span data-i18n="about2">You don't need to be good with technology or have used AI before — we'll explain everything in plain, friendly language, one step at a time.</span><br>
-        <span data-i18n="about3">Come along and discover how AI can become part of your everyday life.</span>
-      </p>
-    </section>
-
-    <section class="cards">
+    <section class="cards" id="about">
       <div class="card">
         <div class="card-icon">🌱</div>
-        <h3>Start from scratch</h3>
-        <p>Never used AI before? That's OK. We'll start from the very beginning.</p>
+        <h3 data-i18n="about1">AI for Everyone is a free, friendly event for adults who are curious about AI but don't know where to start.</h3>
       </div>
       <div class="card">
         <div class="card-icon">💡</div>
-        <h3>Everyday AI</h3>
-        <p>Ask questions, get ideas and find help with everyday things.</p>
+        <h3 data-i18n="about2">You don't need to be good with technology or have used AI before — we'll explain everything in plain, friendly language, one step at a time.</h3>
       </div>
       <div class="card">
         <div class="card-icon">✅</div>
-        <h3>Learn with confidence</h3>
-        <p>AI can be wrong. Learn how to spot it and check what it tells you.</p>
+        <h3 data-i18n="about3">Come along and discover how AI can become part of your everyday life.</h3>
       </div>
     </section>
 
-    <section class="info-row">
-      <div class="info-box" id="event-facts"></div>
-      <div class="info-box" id="countdown"></div>
+    <section class="row">
+      <div class="info-box live-section" id="event-facts"></div>
+      <div class="info-box live-section" id="countdown"></div>
+    </section>
+
+    <section class="row">
+      <div class="live-section" id="promo-video"></div>
+      <div class="live-section" id="gallery"></div>
+    </section>
+
+    <section class="row">
+      <div class="live-section" id="schedule"></div>
+      <div class="live-section" id="signup"></div>
+    </section>
+
+    <section class="row">
+      <div class="live-section" id="faq"></div>
+      <div class="live-section" id="ask"></div>
     </section>
   </main>
 
@@ -465,8 +461,8 @@ function el(tag, text, className) {
   var s = document.createElement("style");
   s.textContent =
     ".live-section{max-width:760px;margin:24px auto;padding:16px;" +
-"scroll-margin-top:90px;" +
-"border:1px solid #c9c9c9;border-radius:10px;background:#ffffff;color:#1a1a1a;} " +
+    "scroll-margin-top:90px;" +
+    "border:1px solid #c9c9c9;border-radius:10px;background:#ffffff;color:#1a1a1a;} " +
     ".live-section h2{margin-top:0;font-size:1.3em;} " +
     ".live-section details{margin:8px 0;} " +
     ".live-section summary{cursor:pointer;font-weight:bold;} " +
@@ -677,8 +673,8 @@ var TEXT_SIZE = 100;
 (function addStyles2() {
   var s = document.createElement("style");
   s.textContent =
-".a11y-bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end !important;" +
-"padding:12px 24px;background:#eef3fb;border-bottom:1px solid #d0d8e8;} " +
+    ".a11y-bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end !important;" +
+    "padding:12px 24px;background:#eef3fb;border-bottom:1px solid #d0d8e8;} " +
     ".a11y-bar button{padding:8px 16px;font-size:0.9rem;cursor:pointer;" +
     "background:#ffffff;color:#1a3a6b;border:1px solid #1a3a6b;" +
     "border-radius:0.4rem;font-weight:500;" +
@@ -687,7 +683,7 @@ var TEXT_SIZE = 100;
     "body.high-contrast{background:#000000 !important;color:#ffffff !important;} " +
     "body.high-contrast .live-section{background:#000000 !important;" +
     "color:#ffffff !important;border-color:#ffffff !important;} " +
-    "body.high-contrast .about{background:#000000 !important;color:#ffffff !important;border-left-color:#ffffff !important;} " +
+    "body.high-contrast .card{background:#000000 !important;color:#ffffff !important;border-color:#ffffff !important;} " +
     "body.high-contrast header{background:#000000 !important;color:#ffffff !important;border-bottom:3px solid #ffffff;} " +
     "body.high-contrast a{color:#ffffff !important;} " +
     ".gallery-grid{display:grid;gap:12px;" +
@@ -849,21 +845,12 @@ function buildToolbar() {
   bar.appendChild(makeButton("contrast-toggle", t("contrast"), function () {
     document.body.classList.toggle("high-contrast");
   }));
-    var nav = document.querySelector(".main-nav");
-if (nav && nav.nextSibling) {
-  document.body.insertBefore(bar, nav.nextSibling);
-} else {
-  bar.style.display = "flex";
-bar.style.justifyContent = "flex-end";
-bar.style.width = "100%";
-bar.style.boxSizing = "border-box";
-var nav = document.querySelector(".main-nav");
-if (nav && nav.nextSibling) {
-  document.body.insertBefore(bar, nav.nextSibling);
-} else {
-  document.body.insertBefore(bar, document.body.firstChild);
-}
-}
+  var nav = document.querySelector(".main-nav");
+  if (nav && nav.nextSibling) {
+    document.body.insertBefore(bar, nav.nextSibling);
+  } else {
+    document.body.insertBefore(bar, document.body.firstChild);
+  }
 }
 
 function updateToolbar() {
@@ -875,6 +862,7 @@ function updateToolbar() {
     navLang.textContent = LANG == "en" ? SECOND.label : "English";
   }
 }
+
 function translatePage() {
   var items = document.querySelectorAll("[data-i18n]");
   for (var i = 0; i < items.length; i++) {
@@ -908,7 +896,6 @@ HOOKS.push(function () {
 });
 buildToolbar();
 loadGallery();
-  // Connect the language link in the main menu
 var navLang = document.getElementById("nav-lang");
 if (navLang) {
   navLang.addEventListener("click", function (e) {
@@ -1046,7 +1033,7 @@ HOOKS.push(function (d) {
 });
 </script>
 
-  <script>
+<script>
 // ===== DAY 3: ASK THE EVENT ASSISTANT =====
 TEXT.en.askTitle = "Ask the event assistant";
 TEXT.en.askPlaceholder = "Type your question here";
@@ -1111,6 +1098,7 @@ HOOKS.push(function () {
   }
 });
 </script>
+
   <footer>
     <p data-i18n="footer">A made-up event for a learning project. Nothing here is real.</p>
   </footer>
