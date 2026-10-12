@@ -146,29 +146,33 @@
     }
 
     .card h3 {
-      margin: 0 0 0.75rem;
-      font-size: 1.15rem;
-      color: var(--blue);
-    }
-
-    .card p {
       margin: 0;
-      font-size: 0.95rem;
+      font-size: 1rem;
       line-height: 1.5;
       color: var(--blue);
-      opacity: 0.85;
+      font-weight: 500;
     }
 
-    /* ---------- Rows (two columns) ---------- */
+    /* ---------- Rows (two columns, equal height) ---------- */
     .row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
       margin: 3rem 0;
-      align-items: start;
+      align-items: stretch;
     }
 
     .row .live-section {
+      max-width: none;
+      margin: 0;
+    }
+
+    /* ---------- Full-width sections ---------- */
+    .full-width {
+      margin: 3rem 0;
+    }
+
+    .full-width .live-section {
       max-width: none;
       margin: 0;
     }
@@ -282,7 +286,6 @@
 
     /* ---------- Forms (signup + ask) ---------- */
     #signup-form button,
-    #ask + #ask-button,
     #ask-button {
       background: var(--blue);
       color: var(--white);
@@ -313,6 +316,91 @@
       margin-bottom: 0.5rem;
     }
 
+    /* ---------- Accessibility floating button ---------- */
+    .a11y-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 200;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(26, 58, 107, 0.3);
+      transition: transform 0.2s ease;
+    }
+
+    .a11y-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    .a11y-panel {
+      position: fixed;
+      bottom: 92px;
+      right: 24px;
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--white);
+      border: 1px solid #d0d8e8;
+      border-radius: 1rem;
+      padding: 12px;
+      box-shadow: 0 4px 12px rgba(26, 58, 107, 0.15);
+    }
+
+    .a11y-panel.open {
+      display: flex;
+    }
+
+    .a11y-panel button {
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      background: var(--white);
+      color: var(--blue);
+      border: 1px solid var(--blue);
+      border-radius: 0.4rem;
+      font-weight: 500;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .a11y-panel button:hover {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    /* ---------- Back to top button ---------- */
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 92px;
+      z-index: 200;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(26, 58, 107, 0.3);
+      display: none;
+      transition: transform 0.2s ease;
+    }
+
+    .back-to-top.visible {
+      display: block;
+    }
+
+    .back-to-top:hover {
+      transform: scale(1.1);
+    }
+
     /* ---------- Responsive ---------- */
     @media (max-width: 900px) {
       .hero-content {
@@ -338,6 +426,7 @@
     }
   </style>
 </head>
+<body>
 <body>
 
   <nav class="main-nav" aria-label="Main navigation">
@@ -389,12 +478,15 @@
     </section>
 
     <section class="row">
-      <div class="info-box live-section" id="event-facts"></div>
-      <div class="info-box live-section" id="countdown"></div>
+      <div class="live-section" id="event-facts"></div>
+      <div class="live-section" id="countdown"></div>
     </section>
 
-    <section class="row">
+    <section class="full-width">
       <div class="live-section" id="promo-video"></div>
+    </section>
+
+    <section class="full-width">
       <div class="live-section" id="gallery"></div>
     </section>
 
@@ -408,6 +500,15 @@
       <div class="live-section" id="ask"></div>
     </section>
   </main>
+
+  <button class="a11y-toggle" id="a11y-toggle" aria-label="Accessibility options">♿</button>
+  <div class="a11y-panel" id="a11y-panel" role="toolbar" aria-label="Accessibility controls">
+    <button id="text-bigger">Text bigger</button>
+    <button id="text-smaller">Text smaller</button>
+    <button id="contrast-toggle">High contrast</button>
+  </div>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
 
   <script>
 /* =========== YOUR SETTINGS (change only this) =========== */
@@ -673,13 +774,6 @@ var TEXT_SIZE = 100;
 (function addStyles2() {
   var s = document.createElement("style");
   s.textContent =
-    ".a11y-bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end !important;" +
-    "padding:12px 24px;background:#eef3fb;border-bottom:1px solid #d0d8e8;} " +
-    ".a11y-bar button{padding:8px 16px;font-size:0.9rem;cursor:pointer;" +
-    "background:#ffffff;color:#1a3a6b;border:1px solid #1a3a6b;" +
-    "border-radius:0.4rem;font-weight:500;" +
-    "transition:background 0.2s ease,color 0.2s ease;} " +
-    ".a11y-bar button:hover{background:#1a3a6b;color:#ffffff;} " +
     "body.high-contrast{background:#000000 !important;color:#ffffff !important;} " +
     "body.high-contrast .live-section{background:#000000 !important;" +
     "color:#ffffff !important;border-color:#ffffff !important;} " +
@@ -687,10 +781,12 @@ var TEXT_SIZE = 100;
     "body.high-contrast header{background:#000000 !important;color:#ffffff !important;border-bottom:3px solid #ffffff;} " +
     "body.high-contrast a{color:#ffffff !important;} " +
     ".gallery-grid{display:grid;gap:12px;" +
-    "grid-template-columns:repeat(auto-fill,minmax(200px,1fr));} " +
-    ".gallery-grid img{width:100%;height:auto;border-radius:8px;} " +
+    "grid-template-columns:repeat(3,1fr);} " +
+    ".gallery-grid img{width:100%;height:180px;object-fit:cover;border-radius:8px;} " +
     ".gallery-grid figcaption{font-size:0.9em;} " +
-    ".live-section video,.live-section iframe{width:100%;max-width:100%;border:0;}";
+    ".live-section video,.live-section iframe{width:100%;max-width:100%;border:0;} " +
+    "@media (max-width: 900px){.gallery-grid{grid-template-columns:repeat(2,1fr);}} " +
+    "@media (max-width: 600px){.gallery-grid{grid-template-columns:1fr;}}";
   document.head.appendChild(s);
 })();
 
@@ -822,41 +918,7 @@ function showAiLabel() {
   b.textContent = t("aiLabel");
 }
 
-function makeButton(id, label, onclick) {
-  var b = el("button", label);
-  b.type = "button";
-  b.id = id;
-  b.addEventListener("click", onclick);
-  return b;
-}
-
-function buildToolbar() {
-  var bar = el("div");
-  bar.id = "a11y-bar";
-  bar.setAttribute("role", "toolbar");
-  bar.appendChild(makeButton("text-bigger", t("bigger"), function () {
-    TEXT_SIZE = Math.min(170, TEXT_SIZE + 10);
-    document.documentElement.style.fontSize = TEXT_SIZE + "%";
-  }));
-  bar.appendChild(makeButton("text-smaller", t("smaller"), function () {
-    TEXT_SIZE = Math.max(80, TEXT_SIZE - 10);
-    document.documentElement.style.fontSize = TEXT_SIZE + "%";
-  }));
-  bar.appendChild(makeButton("contrast-toggle", t("contrast"), function () {
-    document.body.classList.toggle("high-contrast");
-  }));
-  var nav = document.querySelector(".main-nav");
-  if (nav && nav.nextSibling) {
-    document.body.insertBefore(bar, nav.nextSibling);
-  } else {
-    document.body.insertBefore(bar, document.body.firstChild);
-  }
-}
-
 function updateToolbar() {
-  $("text-bigger").textContent = t("bigger");
-  $("text-smaller").textContent = t("smaller");
-  $("contrast-toggle").textContent = t("contrast");
   var navLang = document.getElementById("nav-lang");
   if (navLang) {
     navLang.textContent = LANG == "en" ? SECOND.label : "English";
@@ -894,8 +956,8 @@ HOOKS.push(function () {
   showGallery();
   showAiLabel();
 });
-buildToolbar();
 loadGallery();
+
 var navLang = document.getElementById("nav-lang");
 if (navLang) {
   navLang.addEventListener("click", function (e) {
@@ -903,6 +965,41 @@ if (navLang) {
     switchLanguage();
   });
 }
+
+// Accessibility panel
+var a11yToggle = document.getElementById("a11y-toggle");
+var a11yPanel = document.getElementById("a11y-panel");
+
+a11yToggle.addEventListener("click", function () {
+  a11yPanel.classList.toggle("open");
+});
+
+document.getElementById("text-bigger").addEventListener("click", function () {
+  TEXT_SIZE = Math.min(170, TEXT_SIZE + 10);
+  document.documentElement.style.fontSize = TEXT_SIZE + "%";
+});
+
+document.getElementById("text-smaller").addEventListener("click", function () {
+  TEXT_SIZE = Math.max(80, TEXT_SIZE - 10);
+  document.documentElement.style.fontSize = TEXT_SIZE + "%";
+});
+
+document.getElementById("contrast-toggle").addEventListener("click", function () {
+  document.body.classList.toggle("high-contrast");
+});
+
+// Back to top button
+var backToTop = document.getElementById("back-to-top");
+window.addEventListener("scroll", function () {
+  if (window.scrollY > 400) {
+    backToTop.classList.add("visible");
+  } else {
+    backToTop.classList.remove("visible");
+  }
+});
+backToTop.addEventListener("click", function () {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
 </script>
 
 <script>
