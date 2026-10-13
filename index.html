@@ -31,13 +31,10 @@
     }
 
     /* ---------- Hero ---------- */
-.hero {
-  padding: 4rem 1.5rem 3rem 1.5rem;
-}
-
-.cards {
-  margin: 0 0 3rem 0;
-}
+    .hero {
+      background: var(--soft);
+      padding: 4rem 1.5rem 3rem 1.5rem;
+    }
 
     .hero-content {
       max-width: 72rem;
@@ -126,7 +123,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
-      margin: 3rem 0;
+      margin: 0 0 3rem 0;
     }
 
     .card {
@@ -150,7 +147,7 @@
 
     .card h3 {
       margin: 0;
-      font-size: 1rem;
+      font-size: 1.125rem;
       line-height: 1.5;
       color: var(--blue);
       font-weight: 500;
@@ -377,33 +374,6 @@
       color: var(--white);
     }
 
-    /* ---------- Back to top button ---------- */
-    .back-to-top {
-      position: fixed;
-      bottom: 24px;
-      right: 92px;
-      z-index: 200;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--blue);
-      color: var(--white);
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(26, 58, 107, 0.3);
-      display: none;
-      transition: transform 0.2s ease;
-    }
-
-    .back-to-top.visible {
-      display: block;
-    }
-
-    .back-to-top:hover {
-      transform: scale(1.1);
-    }
-
     /* ---------- Responsive ---------- */
     @media (max-width: 900px) {
       .hero-content {
@@ -429,7 +399,6 @@
     }
   </style>
 </head>
-<body>
 <body>
 
   <nav class="main-nav" aria-label="Main navigation">
@@ -510,8 +479,6 @@
     <button id="text-smaller">Text smaller</button>
     <button id="contrast-toggle">High contrast</button>
   </div>
-
-  <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
 
   <script>
 /* =========== YOUR SETTINGS (change only this) =========== */
@@ -782,6 +749,9 @@ var TEXT_SIZE = 100;
     "color:#ffffff !important;border-color:#ffffff !important;} " +
     "body.high-contrast .card{background:#000000 !important;color:#ffffff !important;border-color:#ffffff !important;} " +
     "body.high-contrast header{background:#000000 !important;color:#ffffff !important;border-bottom:3px solid #ffffff;} " +
+    "body.high-contrast .main-nav{background:#000000 !important;color:#ffffff !important;border-bottom-color:#ffffff !important;} " +
+    "body.high-contrast .main-nav a{color:#ffffff !important;} " +
+    "body.high-contrast footer{background:#000000 !important;color:#ffffff !important;border-top-color:#ffffff !important;} " +
     "body.high-contrast a{color:#ffffff !important;} " +
     ".gallery-grid{display:grid;gap:12px;" +
     "grid-template-columns:repeat(3,1fr);} " +
@@ -990,19 +960,6 @@ document.getElementById("text-smaller").addEventListener("click", function () {
 document.getElementById("contrast-toggle").addEventListener("click", function () {
   document.body.classList.toggle("high-contrast");
 });
-
-// Back to top button
-var backToTop = document.getElementById("back-to-top");
-window.addEventListener("scroll", function () {
-  if (window.scrollY > 400) {
-    backToTop.classList.add("visible");
-  } else {
-    backToTop.classList.remove("visible");
-  }
-});
-backToTop.addEventListener("click", function () {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
 </script>
 
 <script>
@@ -1201,6 +1158,16 @@ HOOKS.push(function () {
 
   <footer>
     <p data-i18n="footer">A made-up event for a learning project. Nothing here is real.</p>
+    <p>© <span id="year">2026</span> AI for Everyone · <span id="version">v2026.10</span></p>
   </footer>
+
+  <script>
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = String(now.getMonth() + 1).padStart(2, "0");
+    document.getElementById("year").textContent = year;
+    document.getElementById("version").textContent = "v" + year + "." + month;
+  </script>
+
 </body>
 </html>
