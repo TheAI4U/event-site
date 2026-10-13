@@ -161,7 +161,11 @@
       margin: 3rem 0;
       align-items: stretch;
     }
-
+    .row-center .live-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     .row .live-section {
       max-width: none;
       margin: 0;
@@ -462,12 +466,12 @@
       <div class="live-section" id="gallery"></div>
     </section>
 
-    <section class="row">
+    <section class="row row-center">
       <div class="live-section" id="schedule"></div>
       <div class="live-section" id="signup"></div>
     </section>
 
-    <section class="row">
+    <section class="row row-center">
       <div class="live-section" id="faq"></div>
       <div class="live-section" id="ask"></div>
     </section>
